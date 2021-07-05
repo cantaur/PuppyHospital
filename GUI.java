@@ -301,7 +301,7 @@ public class GUI extends JFrame implements ActionListener{
 
     void setSearch(){
         pJdbc.selectMOMAll();
-        pJdbc.selectDOGAll();
+        //pJdbc.selectDOGAll();
         Color color = new Color(0x234e85);
         Font font = new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20);
         Font cFont = new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15);
@@ -662,6 +662,7 @@ public class GUI extends JFrame implements ActionListener{
         medisouth.setBorder(BorderFactory.createEmptyBorder(0 , 0 , 10 , 50));
         medisouth.setLayout(new FlowLayout(FlowLayout.CENTER, 10,0));
         mdreset = new JButton("¿Á¿‘∑¬");
+        mdreset.addActionListener(this);
         mdEnter = new JButton("¿˙¿Â");
         mdEnter.addActionListener(this);
         mdCommit = new JButton("µÓ∑œ");
@@ -869,6 +870,11 @@ public class GUI extends JFrame implements ActionListener{
             pln(M_NUMBER+M_NAME+M_PHONE+M_ADDR);
             pJdbc.insertMOM(M_NUMBER,M_PHONE,M_NAME,M_ADDR);
             mModel.setRowCount(0);
+            mNumber.setText("");
+            mName.setText("");
+            mPhone.setText("");
+            mAddr.setText("");
+
         }else if(e.getSource()==mCommit){
             //commit
         }
@@ -887,6 +893,14 @@ public class GUI extends JFrame implements ActionListener{
             pln(D_NUMBER+D_NAME+D_KINDS+D_AGE+D_WEIGHT+D_SEX);
             pJdbc.insertDOG(D_NUMBER,D_NAME,D_KINDS,D_AGE,D_WEIGHT,D_SEX,M_NUMBER);
             dModel.setRowCount(0);
+            dNumber.setText("");
+            dName.setText("");
+            dKinds.setText("");
+            dAge.setText("");
+            dWeight.setText("");
+            dSex.setText("");
+            dmNumber.setText("");
+
         }else if(e.getSource()==dCommit){
             //commit
         }
@@ -898,14 +912,19 @@ public class GUI extends JFrame implements ActionListener{
                 String M_NUMBER = mupnum.getText();
                 String M_NAME = mupname.getText();
                 String M_PHONE= mupphone.getText();
-
                 String M_ADDR= mupaddr.getText();
 
                 pJdbc.updateMOM(M_PHONE, M_NAME, M_ADDR,M_NUMBER);
                 mModel.setRowCount(0);
                 pJdbc.selectMOMAll();
+                mupnum.setText("");
+                mupname.setText("");
+                mupphone.setText("");
+                mupaddr.setText("");
+
             }
         }else if(e.getSource()==mAll){
+            mModel.setRowCount(0);
             mInputSearch.setText("");
             pJdbc.selectMOMAll();
         }else if(e.getSource()==mccBtn){
@@ -914,6 +933,7 @@ public class GUI extends JFrame implements ActionListener{
                 int row = mJTable.getSelectedRow();
                 String M_NUMBER = String.valueOf(mJTable.getValueAt(row, 0));
                 pJdbc.deleteMOM(M_NUMBER);
+
                 mModel.setRowCount(0);
                 pJdbc.selectMOMAll();
             }
@@ -927,9 +947,17 @@ public class GUI extends JFrame implements ActionListener{
             String D_WEIGHT = dupwg.getText();
             String D_AGE = dupage.getText();
             String D_SEX= dupsex.getText();
+            
             pJdbc.updateDOG(D_NAME, D_KINDS, D_AGE, D_WEIGHT, D_SEX, D_NUMBER);
             dModel.setRowCount(0);
             pJdbc.selectDOGAll();
+            dupnum.setText("");
+            dupname.setText("");
+            dupkinds.setText("");
+            dupwg.setText("");
+            dupage.setText("");
+            dupsex.setText("");
+
         }else if(e.getSource()==dccBtn){
             if(dJTable.getSelectedRow() != -1){
                 DefaultTableModel dModel = (DefaultTableModel)dJTable.getModel();
@@ -943,10 +971,12 @@ public class GUI extends JFrame implements ActionListener{
 
 
         if(e.getSource()==dogAll){
+            dModel.setRowCount(0);
             dInputSearch.setText("");
             pJdbc.selectDOGAll();
         }
         if(e.getSource()==mdAll){
+            dModel.setRowCount(0);
             dInputSearch2.setText("");
             pJdbc.selectDOGAll();
         }
@@ -960,9 +990,20 @@ public class GUI extends JFrame implements ActionListener{
             pln(MD_SEC+D_NUMBER+DS_CODE+T_CODE);
             pJdbc.insertMED(MD_SEC, D_NUMBER, DS_CODE, T_CODE);
             mdModel.setRowCount(0);
+            mdDname.setText("");
+            mdSec.setText("");
+            mddscode.setText("");
+            mdtrcode.setText("");
+        }else if(e.getSource()==mdreset){
+            mdDname.setText("");
+            mdSec.setText("");
+            mddscode.setText("");
+            mdtrcode.setText("");
+
         }
 
         if(e.getSource()==mdAll2){
+            mdModel.setRowCount(0);
             mdInputSearch.setText("");
             pJdbc.selectMDAll();
         }
